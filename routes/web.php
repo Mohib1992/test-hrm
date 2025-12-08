@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,6 +18,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('employees', EmployeeController::class);
+    Route::get('/employees/departments/{id}', [EmployeeController::class, 'findByDepartment'])->name('employees.departments');
+    Route::resource('skills', SkillController::class);
+    Route::resource('departments', DepartmentController::class);
 });
 
 require __DIR__.'/auth.php';
+
+
+
